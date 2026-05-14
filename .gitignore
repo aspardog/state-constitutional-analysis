@@ -40,8 +40,9 @@ Thumbs.db
 
 # ============================================
 # Claude Code
+# Keep shared project instructions, ignore local machine overrides
 # ============================================
-.claude/
+.claude/settings.local.json
 
 # ============================================
 # Data files (scraped constitutions)
