@@ -75,6 +75,8 @@ logs/
 /tmp/
 *.tmp
 *.bak
+~$*.xlsx
+~$*.xls
 
 # ============================================
 # Environment and secrets
