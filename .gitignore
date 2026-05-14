@@ -64,9 +64,8 @@ code/tests/test_scraper.py
 # ============================================
 # Intermediate/temporary outputs
 # ============================================
-input/scores.xlsx
-output/*.xlsx
-!output/.gitkeep
+*.xlsx
+*.xls
 
 # ============================================
 # Logs and temp files
@@ -93,13 +92,5 @@ logs/
 # ============================================
 .ipynb_checkpoints/
 
-# ============================================
-# Keep these files (negations)
-# ============================================
-# Keep input templates and reference files
-!input/indicators.xlsx
+# Keep non-Excel config files
 !input/states.yaml
-!input/State_Constitutional_Analysis_C_Hybrid.xlsx
-
-# Keep final outputs
-!outputs/State_Constitutional_Analysis_6States.xlsx

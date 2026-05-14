@@ -4,6 +4,8 @@ A reproducible pipeline for de jure comparative analysis of U.S. state constitut
 
 This project is designed to run with **[Claude Code](https://docs.claude.com/en/docs/claude-code)** for the LLM-based evaluation step. The Claude Code project files needed for that workflow are included under `.claude/`.
 
+No Excel files are committed to this repository. Any `.xlsx` inputs or outputs are expected to remain local only.
+
 ## States Covered
 
 - South Carolina (SC)
@@ -24,14 +26,14 @@ The full research workflow has three stages:
 └─────────────────┘      └──────────────────────┘      └──────────────────┘
         │                          │                            │
         v                          v                            v
-   data/raw/*.txt          input/scores.xlsx         output/State_…xlsx
-   (cached locally)        (canonical, edit-by-hand)  (Option C deliverable)
+   data/raw/*.txt          input/scores.xlsx         local .xlsx outputs
+   (cached locally)        (canonical local input)   (not committed)
 ```
 
 ### Why this design?
 
 - **Constitution text is treated as an input artifact.** You can generate it with your own scraper or add it manually to `data/raw/`.
-- **LLM evaluation is non-deterministic but stable as a frozen artifact.** Claude Code runs the evaluation once, producing `input/scores.xlsx`. From that moment on, `scores.xlsx` is the canonical source. You can edit it by hand if you disagree with any score.
+- **LLM evaluation is non-deterministic but stable as a frozen artifact.** Claude Code runs the evaluation once, producing `input/scores.xlsx`. From that moment on, `scores.xlsx` is the canonical local source. You can edit it by hand if you disagree with any score.
 - **Output building is deterministic.** Re-run `02_build_output.py` as many times as you want; it always produces the same Excel from the same inputs.
 
 ## Folder Structure
@@ -51,15 +53,12 @@ state-constitutional-analysis/
 │   └── tests/
 │       └── test_excel_builder.py
 ├── input/
-│   ├── indicators.xlsx             EDITABLE codebook (the categories)
+│   ├── indicators.xlsx             Local editable codebook (gitignored)
 │   ├── states.yaml                 Six states + scraping config
-│   └── scores.xlsx                 GENERATED locally by Claude Code (gitignored)
+│   └── scores.xlsx                 Generated locally by Claude Code (gitignored)
 ├── data/
 │   └── raw/                        Constitution text inputs (gitignored)
-├── output/
-│   └── State_Constitutional_Analysis.xlsx   GENERATED local workbook (gitignored)
-└── outputs/
-    └── State_Constitutional_Analysis_6States.xlsx  Versioned sample deliverable
+└── outputs/                        Optional local export location (gitignored)
 ```
 
 ## Setup
@@ -105,9 +104,9 @@ This triggers the custom command defined in `.claude/commands/analyze.md`. Claud
 1. Read the codebook from `input/indicators.xlsx`
 2. Read each constitution from `data/raw/`
 3. For each (indicator × state), assign a score 0–3, a constitutional reference, and a brief note
-4. Write the canonical `input/scores.xlsx` with two sheets: `scores` and `analysis`
+4. Write the local `input/scores.xlsx` with two sheets: `scores` and `analysis`
 
-This step takes several minutes and is the most expensive part of the pipeline (LLM context tokens). Once `scores.xlsx` exists, treat it as the canonical input — edit by hand if you disagree with any score.
+This step takes several minutes and is the most expensive part of the pipeline (LLM context tokens). Once `scores.xlsx` exists, treat it as the canonical local input — edit by hand if you disagree with any score.
 
 ### Step 3 — Build the output Excel
 
@@ -115,7 +114,7 @@ This step takes several minutes and is the most expensive part of the pipeline (
 python code/02_build_output.py
 ```
 
-This produces `output/State_Constitutional_Analysis.xlsx` with the following sheets:
+This produces a local `.xlsx` workbook with the following sheets:
 
 1. **Read Me First** — purpose, glossary, caveats
 2. **Executive Summary** — aggregate scores by dimension and total
@@ -128,9 +127,11 @@ This produces `output/State_Constitutional_Analysis.xlsx` with the following she
 
 You can re-run `02_build_output.py` after any manual edit to `input/scores.xlsx` or `input/indicators.xlsx`.
 
+The generated workbook should remain local; it is gitignored by default.
+
 ## Editing the codebook
 
-`input/indicators.xlsx` is the source of truth for indicators. Columns:
+Your local `input/indicators.xlsx` is the source of truth for indicators. Columns:
 
 | Column | Description |
 |---|---|
