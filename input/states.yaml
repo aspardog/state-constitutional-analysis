@@ -1,0 +1,65 @@
+# Configuration for the six states under analysis.
+# Used by code/01_scrape.py and code/02_build_output.py.
+#
+# To add a state, append a new entry with the same schema.
+# `sources` is a list because some constitutions span multiple URLs
+# (e.g., one URL per article). The scraper concatenates them.
+
+states:
+  - code: SC
+    name: South Carolina
+    sources:
+      - url: https://www.scstatehouse.gov/scconstitution/scconst.php
+        selector: "body"
+    fallback_note: |
+      If scraping fails, download the consolidated PDF/HTML from
+      https://www.scstatehouse.gov/scconstitution/scconst.php and save
+      as plain text at data/raw/south_carolina.txt
+
+  - code: TN
+    name: Tennessee
+    sources:
+      - url: https://law.justia.com/constitution/tennessee/
+        selector: "body"
+    fallback_note: |
+      If scraping fails, the official PDF is available at
+      https://publications.tnsosfiles.com/pub/2023%20TN%20Constitution.pdf
+      Convert to plain text and save as data/raw/tennessee.txt
+
+  - code: TX
+    name: Texas
+    sources:
+      - url: https://law.justia.com/constitution/texas/
+        selector: "body"
+    fallback_note: |
+      If scraping fails, the official text is at
+      https://statutes.capitol.texas.gov/?link=CN
+      Concatenate all articles into data/raw/texas.txt
+
+  - code: UT
+    name: Utah
+    sources:
+      - url: https://law.justia.com/constitution/utah/
+        selector: "body"
+    fallback_note: |
+      If scraping fails, the official text is at
+      https://le.utah.gov/xcode/constitution.html
+      Save the full constitution as data/raw/utah.txt
+
+  - code: MN
+    name: Minnesota
+    sources:
+      - url: https://www.revisor.mn.gov/constitution/
+        selector: "body"
+    fallback_note: |
+      If scraping fails, save the constitution from
+      https://www.revisor.mn.gov/constitution/ as data/raw/minnesota.txt
+
+  - code: OH
+    name: Ohio
+    sources:
+      - url: https://codes.ohio.gov/ohio-constitution
+        selector: "body"
+    fallback_note: |
+      If scraping fails, save the constitution from
+      https://codes.ohio.gov/ohio-constitution as data/raw/ohio.txt

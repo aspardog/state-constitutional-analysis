@@ -1,0 +1,102 @@
+# ============================================
+# Python
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# ============================================
+# IDE / Editors
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# ============================================
+# OS generated files
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ============================================
+# Claude Code
+# ============================================
+.claude/
+
+# ============================================
+# Data files (scraped constitutions)
+# Do not commit - each user should run scraper
+# ============================================
+data/raw/*.txt
+data/raw/*.html
+data/raw/*.pdf
+!data/raw/.gitkeep
+
+# ============================================
+# Web scraping code
+# Excluded to avoid potential legal/TOS issues
+# ============================================
+code/01_scrape.py
+code/lib/scraper.py
+code/tests/test_scraper.py
+
+# ============================================
+# Intermediate/temporary outputs
+# ============================================
+input/scores.xlsx
+output/*.xlsx
+!output/.gitkeep
+
+# ============================================
+# Logs and temp files
+# ============================================
+logs/
+*.log
+/tmp/
+*.tmp
+*.bak
+
+# ============================================
+# Environment and secrets
+# ============================================
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# ============================================
+# Jupyter Notebooks checkpoints
+# ============================================
+.ipynb_checkpoints/
+
+# ============================================
+# Keep these files (negations)
+# ============================================
+# Keep input templates and reference files
+!input/indicators.xlsx
+!input/states.yaml
+!input/State_Constitutional_Analysis_C_Hybrid.xlsx
+
+# Keep final outputs
+!outputs/State_Constitutional_Analysis_6States.xlsx
